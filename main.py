@@ -33,7 +33,7 @@ async def ping(ctx):
 # ilgili github projesine gider
 @bot.command()
 async def github(ctx):
-    await ctx.send('Botun GitHub linki: https://github.com/GoktugYalcin/discord_bot')
+    await ctx.send('Botun GitHub linki: https://github.com/GoktugYalcin/ihtilal_bot')
 
 # bot hakkında kanala bilgi verir.
 @bot.command()

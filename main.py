@@ -30,6 +30,16 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('Pong! Gecikme: {0}ms'.format(round(bot.latency, 1)))
 
+# ilgili github projesine gider
+@bot.command()
+async def github(ctx):
+    await ctx.send('Botun GitHub linki: https://github.com/GoktugYalcin/discord_bot')
+
+# bot hakkında kanala bilgi verir.
+@bot.command()
+async def bilgi(ctx):
+    await ctx.send(f'Bot-Adi: {bot.user.name} 💡\nBot-ID: {bot.user.id} 🧭\nDiscord Versiyonu: {discord.__version__} 🛹\nBot Versiyonu: {__version__} 🎮\n')
+
 # random sayı gerektiği zaman kendisine verilen range ve 0 arasında bir sayı döndürecek
 @bot.command()
 async def rastgele(ctx, arg):

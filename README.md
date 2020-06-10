@@ -7,7 +7,9 @@ discord kanalım için <b>discord.py</b> ile yazdığım bot.
 <b><i>!sil</i></b> (default olarak 10 mesaj ama argüman ile istendiği kadar)<br>
 <b><i>!rastgele</i></b> (range-int)<br>
 <b><i>!ping</i></b><br>
-<b><i>!github</i></b>
+<b><i>!github</i></b><br>
+<b><i>!spotify</i></b><br>
+<b><i>!bilgi</i></b><br>
 <br><br>
 
 # Notlar

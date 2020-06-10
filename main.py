@@ -83,7 +83,7 @@ async def on_message(message):
 @bot.event
 async def on_member_join(member):
     print(f"- {member.mention} sunucuya katıldı.")
-    channel = bot.get_channel(717402901017788417)
+    channel = bot.get_channel('YOUR_CHANNEL_ID')
     users = bot.users
     guild = member.guild
     lst = len(list(guild.members))

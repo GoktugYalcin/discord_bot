@@ -14,4 +14,5 @@ discord kanalım için <b>discord.py</b> ile yazdığım bot.
 
 # Notlar
 
-<i><b>YOUR_TOKEN</b> değişkenini kendi botunuz için değişmeyi unutmayın.</i>
+<i><b>YOUR_TOKEN</b> değişkenini kendi botunuz için değişmeyi unutmayın.</i><br>
+<i><b>YOUR_CHANNEL_ID</b> değişkenini istediğiniz kanal ID'si ile değiştirin.</i>

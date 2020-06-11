@@ -1,21 +1,25 @@
 #gerekli modüller
 import discord
 import random
+from discord.ext.commands import CommandNotFound
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 import youtube_dl
 import datetime
 import platform
+import signal
+import sys
+import time
 
-YOUR_TOKEN='INSERT_HERE_YOUR_TOKEN'
+YOUR_TOKEN='NzE4NDY1NDg0MTk0MDU0MjA0.XtpRkQ.FWi6VkL_xhT0cJslxltd61azgD0'
 
 __version__ = '1.0.0'
 
 # botun komut algılayıcısı
 bot = commands.Bot(command_prefix='!')
 
-#  region region komutlar
+#  region commands
 # botun server ile client arasındaki gecikmesini döndürür
 @bot.command()
 async def ping(ctx):
@@ -29,13 +33,15 @@ async def github(ctx):
 
 @bot.command()
 async def spotify(ctx):
-    print("- Aktivite istendi.")
+    print("- Spotify aktivitesi istendi.")
     userx = ctx.message.author
     for act in userx.activities:
-        if act.name=="Spotify":
+        if act.name=="Spotify" and act.title != "":
             await ctx.send(f"{userx.name}, şu an ***{act.name}*** üzerinden, **{act.title}** dinliyor. :musical_note:")
-        elif act.name != "Spotify":
-            await ctx.send(f"{userx.name}, şu an bir şarkı dinlemiyor.")
+            return
+        else:
+            await ctx.send(f"{userx.name}, şu sıralar bir şey dinlemiyor.")
+            return
 
 @bot.command()
 async def sil(ctx, sayi=10):
@@ -59,42 +65,39 @@ async def rastgele(ctx, arg=10):
 
 # komut test fonksiyonu
 @bot.command()
-async def test(ctx, arg):
+async def test(ctx, arg="slm"):
     await ctx.send(arg)
 #  endregion
 
-#  region region event_listeners
+#  region event_listeners
 # istenilen kadar mesaj silme
 @bot.event
 async def on_message(message):
-    if message.content.startswith('!sil'):
-        if message.author.permissions_in(message.channel).manage_messages:
-            args = message.content.split(' ')
-            if len(args) == 2:
-                if args[1].isdigit():
-                    count = int(args[1]) + 1
-                    deleted = await message.channel.purge(limit = count)
-                    await message.channel.send('{} mesaj silindi 👌'.format(len(deleted)-1))
-            else:
-                deleted = await message.channel.purge(limit = 10)
-                await message.channel.send('{} mesaj silindi 👌'.format(10))
     await bot.process_commands(message)
+
 # katılan kullanicinin dogrulamasi
 @bot.event
 async def on_member_join(member):
     print(f"- {member.mention} sunucuya katıldı.")
-    channel = bot.get_channel('YOUR_CHANNEL_ID')
+    channel = bot.get_channel(717402901017788417)
     users = bot.users
     guild = member.guild
     lst = len(list(guild.members))
 
     await channel.send(f'{member.mention} sunucuya katıldı 🤙 Üye sayısı: {lst}')
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, CommandNotFound):
+        print(f"- '{ctx.message.content[1:]}' diye bir komut yok.")
+        await ctx.message.channel.purge(limit = 1)
+        await ctx.send("Böyle bir komut yok ki...")
+
 # giden kullanicinin dogrulamasi
 @bot.event
 async def on_member_remove(member):
     print(f"- {member.mention} sunucuyu terketti.")
-    channel = bot.get_channel('YOUR_CHANNEL_ID')
+    channel = bot.get_channel(717402901017788417)
     users = bot.users
     guild = member.guild
     lst = len(list(guild.members))
@@ -130,6 +133,13 @@ async def on_ready():
     print(f'|Bot Versiyonu: {__version__}               |')
     print(f"|Çalışılan İşletim Sistemi: {sistem} |")
     print('------------------------------------\n\n\nLog başlangıcı:\n')
+#  endregion
+
+#  region exception_handling
+def signal_handler(signal, frame):
+    print('- Bot offline yapıldı.')
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 #  endregion
 
 bot.run(YOUR_TOKEN)

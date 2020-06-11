@@ -12,7 +12,7 @@ import signal
 import sys
 import time
 
-YOUR_TOKEN='NzE4NDY1NDg0MTk0MDU0MjA0.XtpRkQ.FWi6VkL_xhT0cJslxltd61azgD0'
+YOUR_TOKEN=''
 
 __version__ = '1.0.0'
 
@@ -79,7 +79,7 @@ async def on_message(message):
 @bot.event
 async def on_member_join(member):
     print(f"- {member.mention} sunucuya katıldı.")
-    channel = bot.get_channel(717402901017788417)
+    channel = bot.get_channel('YOUR_CHANNEL_ID')
     users = bot.users
     guild = member.guild
     lst = len(list(guild.members))
@@ -97,7 +97,7 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_member_remove(member):
     print(f"- {member.mention} sunucuyu terketti.")
-    channel = bot.get_channel(717402901017788417)
+    channel = bot.get_channel('YOUR_CHANNEL_ID')
     users = bot.users
     guild = member.guild
     lst = len(list(guild.members))
